@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
-    static final int ARRAY_LEN = 1000000;
+    static final int ARRAY_LEN = 10;
     static final int MIN = 0;
     static final int MAX = 1000000;
-    static final String SORTING_METHOD = "defaultSort";
+    static final String SORTING_METHOD = "bogoSort";
     static final boolean PRINT_ARRAY = false;
 
     public static void main(String[] args) throws Exception{
@@ -201,8 +201,9 @@ public class Main {
 
     private static void shuffle(int[] array) {
         Random rand = new Random();
-        for (int i =0; i<array.length; i++){
-            int nextIndex = rand.nextInt(array.length);
+        int arrayLen = array.length;
+        for (int i =0; i<arrayLen; i++){
+            int nextIndex = rand.nextInt(i,arrayLen);
             swap(array,i,nextIndex);
         }
     }
