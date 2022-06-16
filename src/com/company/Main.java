@@ -41,7 +41,7 @@ public class Main {
         System.out.println("Time Diff: "+timeDiff+" milliseconds");
     }
 
-    public static void printArray(int[] array){
+    private static void printArray(int[] array){
         for(int i : array) System.out.print(i+" ");
         System.out.println();
     }
@@ -66,7 +66,7 @@ public class Main {
         }
     }
 
-    public static void swap(int[] array, int index1, int index2){
+    private static void swap(int[] array, int index1, int index2){
         int temp = array[index1];
         array[index1] = array[index2];
         array[index2] = temp;
@@ -193,5 +193,29 @@ public class Main {
         return lp;
     }
 
+    public static void bogoSort(int[] array){
+        while (!isSorted(array)){
+            shuffle(array);
+        }
+    }
+
+    private static void shuffle(int[] array) {
+        Random rand = new Random();
+        for (int i =0; i<array.length; i++){
+            int nextIndex = rand.nextInt(array.length);
+            swap(array,i,nextIndex);
+        }
+    }
+
+    private static boolean isSorted(int[] array) {
+        int lastVal = array[0];
+        for (int i = 1; i<array.length;i++){
+            if (lastVal > array[i]){
+                return false;
+            }
+            lastVal = array[i];
+        }
+        return true;
+    }
 
 }
