@@ -5,40 +5,53 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
-    static final int ARRAY_LEN = 10;
+    static final int ARRAY_LEN = 100000;
     static final int MIN = 0;
     static final int MAX = 1000000;
-    static final String SORTING_METHOD = "bogoSort";
+    static final int REPEAT = 100;
+    static final String SORTING_METHOD = "mergeSort";
     static final boolean PRINT_ARRAY = false;
 
     public static void main(String[] args) throws Exception{
-        sortTester(Main.class.getMethod(SORTING_METHOD,int[].class),PRINT_ARRAY);
+        sortTester();
     }
 
-    public static void sortTester(Method sortMethod,boolean print) throws Exception {
+    public static void sortTester() throws Exception {
+        Method sortMethod = Main.class.getMethod(SORTING_METHOD,int[].class);
 
         int[] array = new int[ARRAY_LEN];
+
+        long avg =0;
+
+        for(int i=0; i<REPEAT;i++){
+
+            createRandomArray(array);
+
+            if (PRINT_ARRAY){
+                System.out.println("Unsorted Array:");
+                printArray(array);
+            }
+
+            long start = System.currentTimeMillis();
+            sortMethod.invoke(Main.class,array);
+            long end = System.currentTimeMillis();
+            avg += end-start;
+
+            if (PRINT_ARRAY){
+                System.out.println("Sorted Array:");
+                printArray(array);
+            }
+        }
+        long timeDiff = avg/REPEAT;
+
+        System.out.println("Average Time Diff Across "+REPEAT+" Runs: "+timeDiff+" milliseconds");
+    }
+
+    private static void createRandomArray(int[] array) {
         Random rand = new Random();
         for(int i = 0; i<ARRAY_LEN;i++){
             array[i] = rand.nextInt(MIN,MAX);
         }
-        if (print){
-            System.out.println("Unsorted Array:");
-            printArray(array);
-        }
-
-        //sorting function here
-        long start = System.currentTimeMillis();
-        sortMethod.invoke(Main.class,array);
-        long end = System.currentTimeMillis();
-        long timeDiff = end-start;
-
-        if (print){
-            System.out.println("Sorted Array:");
-            printArray(array);
-        }
-
-        System.out.println("Time Diff: "+timeDiff+" milliseconds");
     }
 
     private static void printArray(int[] array){
@@ -97,7 +110,7 @@ public class Main {
         mergeCombineArrays(array,leftHalf,rightHalf);
     }
 
-    public static void mergeCombineArrays(int[] finArr, int[] leftArr, int[] rightArr){
+    private static void mergeCombineArrays(int[] finArr, int[] leftArr, int[] rightArr){
         int i = 0, j = 0, k = 0;
 
         while (i < leftArr.length && j < rightArr.length){
