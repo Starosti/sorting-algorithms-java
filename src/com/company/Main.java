@@ -16,6 +16,7 @@ public class Main {
         sortTester();
     }
 
+    @SuppressWarnings("PrimitiveArrayArgumentToVarargsMethod")
     public static void sortTester() throws Exception {
         Method sortMethod = Main.class.getMethod(SORTING_METHOD,int[].class);
 
@@ -59,11 +60,12 @@ public class Main {
         System.out.println();
     }
 
+    @SuppressWarnings("unused")
     public static void defaultSort(int[] array){
         // use default java sorting algorithm
         Arrays.sort(array);
     }
-
+    @SuppressWarnings("unused")
     public static void bubbleSort(int[] array){
         boolean swapped = true;
         int cap = array.length;
@@ -85,6 +87,7 @@ public class Main {
         array[index2] = temp;
     }
 
+    @SuppressWarnings({"ManualArrayCopy","unused"})
     public static void mergeSort(int[] array){
         int arrayLen = array.length;
         int midPoint = arrayLen/2;
@@ -95,6 +98,7 @@ public class Main {
 
         int[] leftHalf = new int[midPoint];
         int[] rightHalf = new int[arrayLen-midPoint];
+
 
         for (int i = 0; i < midPoint; i++){
             leftHalf[i] = array[i];
@@ -137,6 +141,7 @@ public class Main {
         }
     }
 
+    @SuppressWarnings("unused")
     public static void insertionSort(int[] array){
         for (int i = 0; i<array.length ; i++){ // iterate through each element in array
             int currElement = array[i];
@@ -163,10 +168,12 @@ public class Main {
     }
 
     // overloading quicksort
+    @SuppressWarnings("unused")
     public static void quickSort(int[] array) {
         quickSort(array,0,array.length-1,false);
     }
 
+    @SuppressWarnings("unused")
     public static void quickSortRandom(int[] array) {
         quickSort(array,0,array.length-1,true);
     }
@@ -206,6 +213,7 @@ public class Main {
         return lp;
     }
 
+    @SuppressWarnings({"unused", "SpellCheckingInspection"})
     public static void bogoSort(int[] array){
         while (!isSorted(array)){
             shuffle(array);
